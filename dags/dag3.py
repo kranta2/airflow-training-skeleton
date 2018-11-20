@@ -26,9 +26,9 @@ dag = DAG(
     default_args=args,
 )
 
-def p_day(execution_date, **context):
-    print(execution_date.day_of_week)
-
+# def p_day(execution_date, **context):
+#     print(execution_date.weekday())
+#
 # t1 = PythonOperator(
 #     task_id="print_weekday", python_callable=p_day, dag=dag, provide_context=True
 # )
@@ -64,4 +64,5 @@ t6 = DummyOperator(
     task_id="email_joe", dag=dag
 )
 
-t1 >> t2 >> [t4, t5, t6] >> t3
+t1 >> t2
+t2 >> [t4, t5, t6] >> t3
