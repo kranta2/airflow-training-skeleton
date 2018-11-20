@@ -42,7 +42,7 @@ t2 = BranchPythonOperator(
 )
 
 t3 = DummyOperator(
-    task_id="final_task", dag=dag, trigger_rule=TriggerRule.one_sucess
+    task_id="final_task", dag=dag, trigger_rule=TriggerRule.ONE_SUCCESS
 )
 
 # email bob
