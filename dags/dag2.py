@@ -11,27 +11,27 @@ dag = DAG(
     default_args=args,
 )
 
-BashOperator(
+t1 = BashOperator(
     task_id="print_execution_date", bash_command="echo {{ execution_date }}", dag=dag, provide_context=True
 )
 
-BashOperator(
+t2 = BashOperator(
     task_id="wait_1", bash_command="sleep 1", dag=dag
 )
 
-BashOperator(
+t3 = BashOperator(
     task_id="wait_5", bash_command="sleep 5", dag=dag
 )
 
-BashOperator(
+t4 = BashOperator(
     task_id="wait_10", bash_command="sleep 10", dag=dag
 )
 
-DummyOperator(
+t5 = DummyOperator(
     task_id="the_end", dag=dag
 )
 #BashOperator(
 #    task_id="the_end", bash_command="echo {{ execution_date }}", dag=dag
 #)
 
-print_execution_date >> [wait_1, wait_5, wait_10] >> the_end
+t1 >> [t2, t3, t4] >> t5
