@@ -65,4 +65,5 @@ t6 = DummyOperator(
 )
 
 t1 >> t2
-t2 >> [t4, t5, t6] >> t3
+t2 >> [t4, t5, t6]
+[t4, t5, t6] >> t3
