@@ -39,7 +39,7 @@ t1 = DummyOperator(
 
 def get_who(execution_date, **context):
     who = weekday_person_to_email[execution_date.day_of_week - 1]
-    return "email_".format(str.lower(who))
+    return "email_".format(who.lower())
 
 t2 = BranchPythonOperator(
     task_id="branching", dag=dag, python_callable=get_who, provide_context=True
