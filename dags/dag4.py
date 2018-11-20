@@ -1,6 +1,7 @@
 import airflow
 from airflow.models import DAG
-from airflow-training-skeleton.airflow_training.hooks.operators.postgres_to_gcs import PostgresToGoogleCloudStorageOperator
+from airflow.contrib.operators.postgres_to_gcs_operator import PostgresToGoogleCloudStorageOperator
+# from airflow-training-skeleton.airflow_training.hooks.operators.postgres_to_gcs import PostgresToGoogleCloudStorageOperator
 
 args = {
     "owner":"karoliina",
