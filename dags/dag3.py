@@ -27,18 +27,18 @@ dag = DAG(
 )
 
 def p_day(execution_date, **context):
-    print(str(execution_date.weekday()))
+    print(str(execution_date.datetime.weekday()))
 
-# t1 = PythonOperator(
-#     task_id="print_weekday", python_callable=p_day, dag=dag, provide_context=True
-# )
-
-t1 = DummyOperator(
-    task_id="print_weekday", dag=dag
+t1 = PythonOperator(
+    task_id="print_weekday", python_callable=p_day, dag=dag, provide_context=True
 )
 
+# t1 = DummyOperator(
+#     task_id="print_weekday", dag=dag
+# )
+
 def get_who(execution_date, **context):
-    who = weekday_person_to_email[execution_date.weekday()]
+    who = weekday_person_to_email[execution_date.datetime.weekday()]
     return "email_".format(str.lower(who))
 
 t2 = BranchPythonOperator(
