@@ -60,4 +60,5 @@ t6 = DummyOperator(
     task_id="email_joe", dag=dag
 )
 
-t1 >> t2 >> [t4, t5, t6] >> t3
+# t1 >> t2 >> [t4, t5, t6] >> t3
+t1 >> t3
