@@ -16,15 +16,15 @@ BashOperator(
 )
 
 BashOperator(
-    task_id="wait_1", bash_commands="sleep 1", dag=dag
+    task_id="wait_1", bash_command="sleep 1", dag=dag
 )
 
 BashOperator(
-    task_id="wait_5", bash_commands="sleep 5", dag=dag
+    task_id="wait_5", bash_command="sleep 5", dag=dag
 )
 
 BashOperator(
-    task_id="wait_10", bash_commands="sleep 10", dag=dag
+    task_id="wait_10", bash_command="sleep 10", dag=dag
 )
 
 DummyOperator(
