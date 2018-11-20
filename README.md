@@ -1,6 +1,6 @@
 # Airflow training skeleton
 
-This project serves as a skeleton project on which Airflow training participants build exercises.
+This project serves as a skeleton project on which Airflow training participants build exercises. 
 
 At the start of the training, you will receive a Google Cloud Platform project, with a pre-configured Cloud Composer environment (Google's managed Airflow).
 
