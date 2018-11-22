@@ -34,7 +34,7 @@ pgsl_to_gcs = PostgresToGoogleCloudStorageOperator(
 dataproc_create_cluster = DataprocClusterCreateOperator(
     task_id="dataproc_create_cluster",
     cluster_name="analyse-pricing-{{ ds }}",
-    project_id="Training Boldotcom - kranta",
+    project_id="airflowbolcom-32fd1524d41dfd35",
     num_workers=2,
     zone="europe-west4-a",
     dag=dag,
@@ -52,7 +52,7 @@ dataproc_delete_cluster = DataprocClusterDeleteOperator(
     task_id="dataproc_delete_cluster",
     cluster_name="analyse-pricing-{{ ds }}",
     dag=dag,
-    project_id="Training Boldotcom - kranta",
+    # project_id="Training Boldotcom - kranta",
 )
 
 [pgsl_to_gcs, dataproc_create_cluster] >> compute_aggregates >> dataproc_delete_cluster
