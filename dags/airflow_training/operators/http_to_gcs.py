@@ -30,7 +30,6 @@ from airflow.contrib.hooks.gcs_hook import GoogleCloudStorageHook
 from tempfile import NamedTemporaryFile
 from airflow.utils.decorators import apply_defaults
 
-
 class HttpToGcsOperator(BaseOperator):
     """
     Calls an endpoint on an HTTP system to execute an action
