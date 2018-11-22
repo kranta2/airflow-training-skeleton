@@ -1,6 +1,14 @@
 import airflow
 from airflow.models import DAG
-from airflow.contrib.operators.postgres_to_gcs_operator import PostgresToGoogleCloudStorageOperator
+from airflow.contrib.operators.postgres_to_gcs_operator import (
+    PostgresToGoogleCloudStorageOperator,
+)
+
+from airflow.contrib.operators.dataproc_operator import (
+    DataprocClusterCreateOperator,
+    DataProcPySparkOperator,
+    DataprocClusterDeleteOperator,
+)
 
 args = {
     "owner":"karoliina",
@@ -23,4 +31,22 @@ pgsl_to_gcs = PostgresToGoogleCloudStorageOperator(
     dag=dag,
 )
 
+dataproc_create_cluster = DataprocClusterCreateOperator(
+    cluster_name="analyse-pricing-{{ ds }}",
+    project_id="Training Boldotcom - kranta",
+    num_workers=2,
+    zone="europe-west4-a",
+)
+
+compute_aggregates = DataProcPySparkOperator(
+    main="../other/build_statistics.py",
+    cluster_name="analyse-pricing-{{ ds }}",
+    arguments=["{{ ds }}"],
+)
+
+dataproc_delete_cluster = DataprocClusterDeleteOperator(
+    cluster_name="analyse-pricing-{{ ds }}",
+)
+
+[pgsl_to_gcs, dataproc_create_cluster] >> compute_aggregates >> dataproc_delete_cluster
 
