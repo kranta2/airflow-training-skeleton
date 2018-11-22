@@ -10,6 +10,8 @@ from airflow.contrib.operators.dataproc_operator import (
     DataprocClusterDeleteOperator,
 )
 
+from dag
+
 args = {
     "owner":"karoliina",
     "start_date": airflow.utils.dates.days_ago(3),
@@ -30,6 +32,8 @@ pgsl_to_gcs = PostgresToGoogleCloudStorageOperator(
     postgres_conn_id = "postgres_id",
     dag=dag,
 )
+
+
 
 dataproc_create_cluster = DataprocClusterCreateOperator(
     task_id="dataproc_create_cluster",
@@ -55,5 +59,5 @@ dataproc_delete_cluster = DataprocClusterDeleteOperator(
     project_id="airflowbolcom-32fd1524d41dfd35",
 )
 
-[pgsl_to_gcs, dataproc_create_cluster] >> compute_aggregates >> dataproc_delete_cluster
+pgsl_to_gcs >> dataproc_create_cluster >> compute_aggregates >> dataproc_delete_cluster
 
