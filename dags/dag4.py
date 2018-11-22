@@ -94,7 +94,7 @@ http_to_gcs = HttpToGcsOperator(
     http_conn_id="https://europe-west1-gdd-airflow-training.cloudfunctions.net/airflow-training-transform-valutas",
     endpoint="?date={{ ds }}&from=GBP&to=EUR",
     gcs_bucket="airflow_training_kranta",
-    gcs_path="currency/{{ ds ]}/exchange_{}.json"
+    gcs_path="currency/{{ ds }}/exchange_{}.json"
 )
 
 dataproc_create_cluster = DataprocClusterCreateOperator(
