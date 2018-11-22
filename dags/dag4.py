@@ -32,6 +32,7 @@ pgsl_to_gcs = PostgresToGoogleCloudStorageOperator(
 )
 
 dataproc_create_cluster = DataprocClusterCreateOperator(
+    task_id="dataproc_create_cluster"
     cluster_name="analyse-pricing-{{ ds }}",
     project_id="Training Boldotcom - kranta",
     num_workers=2,
@@ -39,12 +40,14 @@ dataproc_create_cluster = DataprocClusterCreateOperator(
 )
 
 compute_aggregates = DataProcPySparkOperator(
+    task_id="compute_aggregates"
     main="../other/build_statistics.py",
     cluster_name="analyse-pricing-{{ ds }}",
     arguments=["{{ ds }}"],
 )
 
 dataproc_delete_cluster = DataprocClusterDeleteOperator(
+    task_id="dataproc_delete_cluster"
     cluster_name="analyse-pricing-{{ ds }}",
 )
 
