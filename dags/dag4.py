@@ -60,6 +60,7 @@ from airflow.models import DAG
 from airflow.contrib.operators.postgres_to_gcs_operator import (
     PostgresToGoogleCloudStorageOperator,
 )
+from airflow.contrib.operators.gcs_to_bq import GoogleCloudStorageToBigQueryOperator
 
 from airflow.contrib.operators.dataproc_operator import (
     DataprocClusterCreateOperator,
@@ -121,4 +122,15 @@ dataproc_delete_cluster = DataprocClusterDeleteOperator(
     project_id="airflowbolcom-32fd1524d41dfd35",
 )
 
-[pgsl_to_gcs, http_to_gcs] >> dataproc_create_cluster >> compute_aggregates >> dataproc_delete_cluster
+gcs_to_bq = GoogleCloudStorageToBigQueryOperator(
+    task_id="write_to_bq",
+    bucket="airflow_training_kranta",
+    source_objects=["average_prices/transfer_date={{ ds }}/*"],
+    destination_project_dataset_table="airflowbolcom-32fd1524d41dfd35" + ":prices.land_registry_price${{ ds_nodash }}",
+    source_format="PARQUET",
+    write_disposition="WRITE_TRUNCATE",
+    dag=dag,
+)
+
+
+[pgsl_to_gcs, http_to_gcs] >> dataproc_create_cluster >> compute_aggregates >> dataproc_delete_cluster >> gcs_to_bq
