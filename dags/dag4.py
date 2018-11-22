@@ -91,7 +91,7 @@ pgsl_to_gcs = PostgresToGoogleCloudStorageOperator(
 http_to_gcs = HttpToGcsOperator(
     task_id="http_to_gcs",
     dag=dag,
-    http_conn_id="https://europe-west1-gdd-airflow-training.cloudfunctions.net/airflow-training-transform-valutas",
+    http_conn_id="http_valuta_id",
     endpoint="?date={{ ds }}&from=GBP&to=EUR",
     gcs_bucket="airflow_training_kranta",
     gcs_path="currency/{{ ds }}/exchange_{}.json"
