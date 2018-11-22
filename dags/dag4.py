@@ -37,6 +37,7 @@ dataproc_create_cluster = DataprocClusterCreateOperator(
     project_id="Training Boldotcom - kranta",
     num_workers=2,
     zone="europe-west4-a",
+    dag=dag,
 )
 
 compute_aggregates = DataProcPySparkOperator(
@@ -44,11 +45,13 @@ compute_aggregates = DataProcPySparkOperator(
     main="../other/build_statistics.py",
     cluster_name="analyse-pricing-{{ ds }}",
     arguments=["{{ ds }}"],
+    dag=dag,
 )
 
 dataproc_delete_cluster = DataprocClusterDeleteOperator(
     task_id="dataproc_delete_cluster",
     cluster_name="analyse-pricing-{{ ds }}",
+    dag=dag,
 )
 
 [pgsl_to_gcs, dataproc_create_cluster] >> compute_aggregates >> dataproc_delete_cluster
