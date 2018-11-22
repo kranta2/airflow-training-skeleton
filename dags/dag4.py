@@ -52,7 +52,7 @@ dataproc_delete_cluster = DataprocClusterDeleteOperator(
     task_id="dataproc_delete_cluster",
     cluster_name="analyse-pricing-{{ ds }}",
     dag=dag,
-    # project_id="Training Boldotcom - kranta",
+    project_id="airflowbolcom-32fd1524d41dfd35",
 )
 
 [pgsl_to_gcs, dataproc_create_cluster] >> compute_aggregates >> dataproc_delete_cluster
